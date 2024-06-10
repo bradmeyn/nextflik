@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import { type MovieData, getMovies } from "../../lib/services/movies";
 
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
+import MovieCardDialog from "./MovieCard";
 
 type Props = {
   carouselData: {
@@ -77,7 +78,7 @@ export default function Carousel({ carouselData }: Props) {
           }}
         >
           {movies.map((movie) => (
-            <CarouselItem
+            <MovieCardDialog
               key={movie.id}
               id={movie.id}
               title={movie.title}
@@ -92,28 +93,6 @@ export default function Carousel({ carouselData }: Props) {
           <ChevronRightIcon className="w-full" />
         </button>
       </div>
-    </div>
-  );
-}
-
-// Movie poster in carousel
-function CarouselItem({
-  title,
-  poster,
-}: {
-  id: number;
-  title: string;
-  poster: string;
-}) {
-  const src = `https://image.tmdb.org/t/p/w200${poster}`;
-
-  return (
-    <div
-      className={
-        "card-shadow relative w-28 rounded-md transition-transform duration-300  hover:cursor-pointer hover:outline hover:outline-2 md:w-36 lg:w-48  xl:w-52"
-      }
-    >
-      <img className="h-auto w-full rounded" src={src} alt={title} />
     </div>
   );
 }

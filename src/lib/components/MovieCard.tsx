@@ -35,7 +35,7 @@ export default function MovieCardDialog({
       <button
         onClick={handleOpen}
         className={
-          "card-shadow relative rounded  hover:cursor-pointer hover:outline hover:outline-white "
+          "card-shadow relative rounded w-[100px] md:w-[120px] lg:w-[200px] hover:cursor-pointer hover:outline hover:outline-white "
         }
       >
         <img className="h-auto w-full rounded" src={src} alt={title} />
@@ -47,8 +47,8 @@ export default function MovieCardDialog({
         className="relative z-50 bg-gray-900 bg-opacity-50"
       >
         <div className="fixed inset-0 bg-black/70" aria-hidden="true" />
-        <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
-          <DialogPanel className="text-white bg-slate-900 relative w-full min-h-screen m-4 py-4">
+        <div className="fixed inset-0 flex w-screen items-center justify-center">
+          <DialogPanel className="text-white bg-slate-900 relative m-4">
             <button
               onClick={() => setIsOpen(false)}
               className="text-red p-2 hover:bg-slate-600 rounded absolute top-2 right-2 "
@@ -56,7 +56,7 @@ export default function MovieCardDialog({
               <XMarkIcon className="w-6" />
             </button>
             <div>
-              {!isLoading ? (
+              {isLoading ? (
                 <Skeleton title={title} poster={src} />
               ) : movie ? (
                 <MovieDialogBody movie={movie} poster={src} />
@@ -91,7 +91,7 @@ function MovieDialogBody({ movie }: { movie: Movie; poster: string }) {
     >
       <div className="container mx-auto flex flex-col gap-4   p-4 md:max-w-[1000px]">
         <div className="flex gap-4 md:gap-8">
-          <div className="w-32 md:w-72 md:min-w-[250px] lg:w-80 lg:min-w-[300px]">
+          <div className="">
             <img
               className="w-full rounded"
               src={moviePoster}
