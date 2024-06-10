@@ -95,7 +95,7 @@ function MovieDialogBody({ movie }: { movie: Movie; poster: string }) {
             <img
               className="w-full rounded"
               src={moviePoster}
-              alt={movie.title + " poster" ?? ""}
+              alt={movie.title + " poster"}
             />
           </div>
 

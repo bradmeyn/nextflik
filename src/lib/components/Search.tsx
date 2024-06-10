@@ -136,7 +136,7 @@ function MovieItem({ movie }: { movie: Movie }) {
           <img
             className="rounded"
             src={moviePoster}
-            alt={movie.title + " poster" ?? ""}
+            alt={movie.title + " poster"}
           />
         </div>
         <div className="flex-grow">

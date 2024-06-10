@@ -39,7 +39,10 @@ export default function Carousel({ carouselData }: Props) {
   };
 
   const getMoreMovies = async () => {
-    const data = await getMovies(url, { page: currentPage + 1, year });
+    const data = await getMovies(url, {
+      page: currentPage + 1,
+      primary_release_year: year,
+    });
     setMovies([...movies, ...(data?.results ?? [])]);
     setCurrentPage((prev) => prev + 1);
   };

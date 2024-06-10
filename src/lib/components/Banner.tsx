@@ -1,4 +1,4 @@
-import { MovieResult } from "../types/types";
+import { Movie } from "../types/types";
 
 import { MouseEvent, MouseEventHandler, useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 type Props = {
-  movies: MovieResult[];
+  movies: Movie[];
 };
 
 export default function Banner({ movies }: Props) {
@@ -116,7 +116,7 @@ export default function Banner({ movies }: Props) {
 }
 
 type FeaturedButtonsProps = {
-  movies: MovieResult[];
+  movies: Movie[];
   featuredIndex: number;
   setFeaturedIndex: (index: number) => void;
 };
