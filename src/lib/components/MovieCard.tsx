@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import { StarIcon } from "@heroicons/react/24/solid";
+import { StarIcon, BookmarkIcon } from "@heroicons/react/24/solid";
 import { getMovie } from "../services/movies";
 import { useState } from "react";
 import { type Movie } from "../types/types";
@@ -9,10 +9,14 @@ export default function MovieCardDialog({
   id,
   title,
   poster,
+  isList = false,
+  rating,
 }: {
   id: number;
   title: string;
   poster: string;
+  isList?: boolean;
+  rating?: number;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [movie, setMovie] = useState<Movie | null>(null);
@@ -32,13 +36,30 @@ export default function MovieCardDialog({
 
   return (
     <>
-      <button
-        onClick={handleOpen}
-        className={
-          "card-shadow relative rounded w-[100px] md:w-[120px] lg:w-[200px] hover:cursor-pointer hover:outline hover:outline-white "
-        }
-      >
-        <img className="h-auto w-full rounded" src={src} alt={title} />
+      <button onClick={handleOpen} className="flex gap-4">
+        <button
+          className={
+            "card-shadow relative rounded min-w-[80px]  w-[80px] md:w-[100px] lg:w-[160px] hover:cursor-pointer hover:outline hover:outline-white "
+          }
+        >
+          <img className="h-auto rounded" src={src} alt={title} />
+        </button>
+        {isList ? (
+          <div
+            className="bg-slate-900 inline p-4 flex-1 text-left"
+            onClick={handleOpen}
+          >
+            <h1 className="text-xl md:text-2xl text-white mb-4 font-bold">
+              {title}
+            </h1>
+            {rating ? (
+              <div className="flex items-center gap-2">
+                <StarIcon className="w-8 text-yellow-400" />
+                <span className="text-white text-xl">{rating.toFixed(1)}</span>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </button>
 
       <Dialog
@@ -89,18 +110,18 @@ function MovieDialogBody({ movie }: { movie: Movie; poster: string }) {
         backgroundImage: `linear-gradient(rgba(16, 23, 42, 0.8), rgba(16, 23, 42, 0.8)), url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`,
       }}
     >
-      <div className="container mx-auto flex flex-col gap-4   p-4 md:max-w-[1000px]">
+      <div className="container mx-auto flex flex-col gap-4 p-4 md:max-w-[1000px]">
         <div className="flex gap-4 md:gap-8">
           <div className="">
             <img
-              className="w-full rounded"
+              className="rounded w-[150px] md:w-[200px] lg:w-[300px] xl:w-[400px]"
               src={moviePoster}
               alt={movie.title + " poster"}
             />
           </div>
 
           <div>
-            <h1 className="mb-2 text-xl font-bold text-white md:text-3xl">
+            <h1 className="mb-2 text-xl font-bold text-white md:text-3xl max-w-[1000px]">
               {movie.original_title}
             </h1>
             <p className=" mb-2 text-sm text-slate-300">
@@ -116,9 +137,12 @@ function MovieDialogBody({ movie }: { movie: Movie; poster: string }) {
                 {movie.vote_average.toFixed(1)}
               </span>
             </div>
+
             <p className="text-md mb-3 italic text-slate-300 md:text-lg">
               {movie.tagline}
             </p>
+
+            <WatchlistButton id={movie.id} />
 
             <div className="hidden w-full md:block">
               <TextBlock title="Overview" paragraph={movie.overview} />
@@ -176,5 +200,14 @@ function Skeleton({ title, poster }: { title: string; poster: string }) {
         </div>
       </div>
     </div>
+  );
+}
+
+function WatchlistButton({ id }: { id: number }) {
+  return (
+    <button className="flex items-center gap-2 px-4 py-2 my-2 rounded-full text-slate-200 md:border border-slate-400 hover:border-blue-500 hover:text-white  md:max-w-md md:flex-1  lg:max-w-xl ">
+      <BookmarkIcon className="w-5" />
+      <span className="hidden md:static md:inline">Add to Watchlist</span>
+    </button>
   );
 }

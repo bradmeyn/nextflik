@@ -76,7 +76,7 @@ export default function DiscoverPage() {
           <FilterDialog filters={filters} setFilters={setFilters} />
           {movies?.length > 0 ? (
             <>
-              <div className="relative mb-10 grid grid-cols-4 gap-4 lg:grid-cols-5 xl:grid-cols-7">
+              <div className="relative mb-10 flex justify-center flex-wrap gap-4 ">
                 {movies.map((movie, i) => (
                   <MovieCardDialog
                     key={i}

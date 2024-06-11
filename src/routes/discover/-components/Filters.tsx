@@ -55,7 +55,7 @@ export function FilterDialog({
         className="relative z-50 bg-gray-900 bg-opacity-50"
       >
         <div className="fixed inset-0 bg-black/70" aria-hidden="true" />
-        <div className="fixed top-10 flex w-full max-w-[600px]  items-center justify-center">
+        <div className="fixed top-10 flex w-full max-w-[600px]  items-center justify-center left-1/2 -translate-x-1/2 rounded-xl">
           <DialogPanel className=" space-y-4 text-white bg-slate-900 p-6 relative ">
             <div className="flex items-center justify-between">
               <DialogTitle className="font-bold text-2xl">
@@ -97,7 +97,7 @@ export function FilterDialog({
             <div className="flex gap-2 pt-6">
               <button
                 disabled={!filtersUpdated}
-                className="py-2 px-4 bg-blue-500 rounded-full min-w-[120px] disabled:cursor-not-allowed disabled:bg-blue-500/50 "
+                className="py-2 px-4 bg-blue-500 rounded-full min-w-[120px] disabled:cursor-not-allowed disabled:bg-blue-500/30 disabled:text-white/30 "
                 onClick={applyFilters}
               >
                 Apply
@@ -241,7 +241,7 @@ export function ReleaseYearFilter({
             min={1950}
             max={new Date().getFullYear()}
             value={releaseYear.min}
-            className="w-full p-2 rounded-lg border border-slate-400 bg-transparent"
+            className="w-full p-2 rounded-lg  text-lg border border-slate-500 bg-gray-800 bg-transparent"
             onChange={(e) =>
               setReleaseYear({ ...releaseYear, min: Number(e.target.value) })
             }
@@ -260,7 +260,7 @@ export function ReleaseYearFilter({
             min={1950}
             max={new Date().getFullYear()}
             value={releaseYear.max}
-            className="w-full p-2 rounded-lg border border-slate-400 bg-transparent"
+            className="w-full p-2 rounded-lg text-lg  border border-slate-500 bg-transparent bg-gray-800"
             onChange={(e) =>
               setReleaseYear({ ...releaseYear, max: Number(e.target.value) })
             }

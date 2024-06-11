@@ -44,11 +44,11 @@ export default function Banner({ movies }: Props) {
   return (
     <>
       <div className=" text-white">
-        <div className="custom-shadow hover:outline mx-auto mb-3 flex h-[180px] md:h-[300px] lg:h-[320px] w-full overflow-clip rounded relative">
+        <div className="custom-shadow  mx-auto mb-3 flex h-[180px] md:h-[300px] lg:h-[320px] w-full overflow-clip rounded relative">
           {movies.map((movie, i) => (
             <div
               key={movie.id}
-              className={`min-w-full rounded bg-cover bg-no-repeat text-left transition-transform duration-500 ease-in-out hover:cursor-pointer`}
+              className={`min-w-full rounded bg-cover bg-no-repeat text-left transition-transform duration-500 ease-in-out hover:cursor-pointer p-4`}
               style={{
                 backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
                 transform: `translateX(-${featuredIndex * 100}%)`,
@@ -59,7 +59,7 @@ export default function Banner({ movies }: Props) {
                   <SliderButton
                     onClick={moveLeft}
                     icon={
-                      <ChevronLeftIcon className="w-10 text-lg md:text-4xl" />
+                      <ChevronLeftIcon className="w-8 text-lg md:text-4xl" />
                     }
                   />
                 ) : null}
@@ -97,7 +97,7 @@ export default function Banner({ movies }: Props) {
                   <SliderButton
                     onClick={moveRight}
                     icon={
-                      <ChevronRightIcon className="w-10 text-lg md:text-4xl" />
+                      <ChevronRightIcon className="w-8 text-lg md:text-4xl" />
                     }
                   />
                 ) : null}
@@ -155,7 +155,7 @@ function SliderButton({ onClick, icon }: SliderButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="z-10 h-full p-3 text-slate-400 hover:text-white md:p-5"
+      className="z-10 h-full hidden md:block p-2 text-slate-400 hover:text-white md:p-2"
     >
       {icon}
     </button>
