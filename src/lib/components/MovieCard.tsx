@@ -2,8 +2,9 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { StarIcon, BookmarkIcon } from "@heroicons/react/24/solid";
 import { getMovie } from "../services/movies";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { type Movie } from "../types/types";
+import { getMovieIds, addMovieId, removeMovieId } from "../services/watchlist";
 
 export default function MovieCardDialog({
   id,
@@ -26,9 +27,9 @@ export default function MovieCardDialog({
   async function handleOpen() {
     setIsOpen(true);
     setIsLoading(true);
-    const response = await getMovie(id);
+    const data = await getMovie(id);
     setIsLoading(false);
-    const movie = response?.data;
+    const movie = data;
     if (movie) {
       setMovie(movie);
     }
@@ -204,10 +205,33 @@ function Skeleton({ title, poster }: { title: string; poster: string }) {
 }
 
 function WatchlistButton({ id }: { id: number }) {
+  const [isWatchlisted, setIsWatchlisted] = useState(false);
+
+  useEffect(() => {
+    const movieIds = getMovieIds();
+    setIsWatchlisted(movieIds.includes(id));
+  }, [id]);
+
+  const handleWatchlistClick = () => {
+    if (isWatchlisted) {
+      removeMovieId(id);
+      setIsWatchlisted(false);
+    } else {
+      addMovieId(id);
+      setIsWatchlisted(true);
+    }
+  };
+
+  const buttonStyle = isWatchlisted
+    ? "flex items-center gap-2 px-4 py-2 my-2 rounded-full text-white bg-blue-500 md:border border-blue-500 hover:border-blue-700 hover:text-white md:max-w-md md:flex-1 lg:max-w-xl"
+    : "flex items-center gap-2 px-4 py-2 my-2 rounded-full text-slate-200 md:border border-slate-400 hover:border-blue-500 hover:text-white md:max-w-md md:flex-1 lg:max-w-xl";
+
   return (
-    <button className="flex items-center gap-2 px-4 py-2 my-2 rounded-full text-slate-200 md:border border-slate-400 hover:border-blue-500 hover:text-white  md:max-w-md md:flex-1  lg:max-w-xl ">
+    <button className={buttonStyle} onClick={handleWatchlistClick}>
       <BookmarkIcon className="w-5" />
-      <span className="hidden md:static md:inline">Add to Watchlist</span>
+      <span className="hidden md:static md:inline">
+        {isWatchlisted ? "Remove from Watchlist" : "Add to Watchlist"}
+      </span>
     </button>
   );
 }
